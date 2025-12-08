@@ -1,0 +1,154 @@
+PRD: SOP Auto-Generator (Exhibition MVP)
+1. Product Overview
+
+Purpose:
+Automatically generate structured, visual, and actionable SOPs from operational incidents, reducing manual documentation effort, improving compliance, and providing instant operational insights. Designed for Ops teams, NOC engineers, IT support, and retail/SMB managers.
+
+Core Value Proposition:
+
+Converts a problem/incident into a fully structured SOP in seconds.
+
+Reduces human error in documentation.
+
+Provides visual, interactive outputs and compliance metrics for trend analysis.
+
+Minimal user effort: dropdowns, checkboxes, pre-made inputs.
+
+Exhibition Angle:
+
+Visual, interactive, and data-driven outputs.
+
+Polished UI/UX with instant generation of SOP + metrics.
+
+Demonstrable “from incident → actionable SOP → efficiency/compliance insights” in 30–60 seconds.
+
+2. Target Users
+User Type	Use Case	Pain Point Solved
+NOC / IT Ops	Server/network outages, recurring errors	Avoids manual incident reporting; creates repeatable SOPs instantly
+Retail / SMB managers	Customer complaints, operational incidents	Standardizes response; improves team onboarding
+Operations teams	Any recurring operational issues	Provides ready-to-use SOPs + compliance metrics
+3. User Workflow (MVP)
+Step 1: Incident Input
+
+User selects pre-defined Incident Type (dropdown)
+e.g., Server Down, Network Issue, UI Bug, Customer Complaint
+
+User selects Severity (dropdown): Low / Medium / High
+
+User selects Action Taken (multi-choice checkboxes): Restart Server, Notify Team, Escalate, etc.
+
+Optional Extra Details text box for free-text incident notes.
+
+Rationale: Reduces typing, ensures clean, structured input, and avoids messy free-text parsing.
+
+Step 2: SOP Generation
+
+Backend calls Gemini API (or GPT-like model) with structured incident input.
+
+Output is an SOP object with:
+
+Title: [Incident Type + short description]
+
+Trigger / Problem
+
+Immediate Steps / Actions (ordered list, visual cards)
+
+Preventive Actions / Recommendations
+
+Responsible Team / Role
+
+Visual Enhancements:
+
+Step cards with icons (action type, severity, team responsible)
+
+Color coding by severity: High = red, Medium = yellow, Low = green
+
+Collapsible sections for preventive vs corrective actions
+
+Timeline visualization optional (show sequence & duration of steps)
+
+Step 3: Compliance & Metrics (Exhibition Wow Factor)
+
+Simulate past incidents using a local JSON file (no real user data needed)
+
+Generate graphs:
+
+Bar chart: Number of SOPs generated per incident type
+
+Pie chart: Distribution of severity levels
+
+Compliance metric: % SOPs “followed” (simulated)
+
+Efficiency improvement: Average incident resolution time decreased (simulated)
+
+Tech: Plotly.js / Chart.js frontend visualization.
+Impact: Shows tool is data-driven, not just text generation.
+
+Step 4: Output & Export
+
+Interactive SOP Display:
+
+Visual cards, collapsible preventive steps, icons, color coding
+
+Export Options:
+
+PDF / Word (print-ready with visuals)
+
+Interactive HTML (clickable checklist)
+
+Copy to Slack / Teams snippet
+
+Optional: Store SOP in lightweight local DB (SQLite / JSON) for future reference.
+
+4. Technical Architecture
+
+Frontend:
+
+Cursor for fast prototyping + layout (UI + forms)
+
+Interactive visuals (cards, collapsibles, graphs)
+
+Backend:
+
+Gemini API for text generation & SOP structuring
+
+Optional Python/Node server to handle JSON storage, API calls, export
+
+Data Storage:
+
+Local JSON or SQLite for MVP (simulated past incidents for graphs)
+
+No sensitive data required → avoids privacy concerns
+
+Integration:
+
+Minimal: can demo as a self-contained app (no WhatsApp/Gmail integrations)
+
+5. MVP Scope (1–2 days)
+Feature	Must-Have	Optional / Polish
+Incident input	Dropdowns + multi-choice + free-text box	Advanced NLP from raw text (later)
+SOP Generation	Structured 4 sections	Visual cards, color-coded, timeline
+Export	PDF / HTML	Slack/Teams snippet
+Compliance graphs	Simulated bar/pie charts	Real-time stats, trend analysis
+Storage	Local JSON	Full dashboard of SOP history
+6. Why It Works for Exhibition
+
+Fast demo: Paste incident → click “Generate” → SOP + graphs in <30 sec.
+
+Visual & interactive: Colored cards, icons, graphs make judges notice.
+
+Data-driven feel: Metrics + compliance scores → looks serious & useful.
+
+Convenience: Minimizes typing, avoids complex integrations.
+
+Polished MVP: Looks like a real product, not a GPT wrapper.
+
+7. Optional UP-Level Enhancements
+
+Auto-prioritization of incidents based on severity.
+
+Merge multiple incidents into one SOP.
+
+Trend analysis over simulated historical incidents.
+
+Tiny gamification: show “team efficiency improvement score” for exhibition wow-factor.

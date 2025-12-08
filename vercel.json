@@ -1,0 +1,23 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "env": {
+    "GEMINI_API_KEY": "@gemini-api-key"
+  },
+  "functions": {
+    "src/app/api/generate-sop/route.ts": {
+      "maxDuration": 30
+    },
+    "src/app/api/export/route.ts": {
+      "maxDuration": 20
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white dark:bg-dark-950 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  /* Dark mode class on html element */
+  html.dark {
+    color-scheme: dark;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-dark-950 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 dark:bg-dark-800 dark:hover:bg-dark-700 text-gray-700 dark:text-gray-300 font-semibold py-3 px-6 rounded-lg border border-gray-300 dark:border-dark-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-dark-950 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent hover:bg-gray-100 dark:hover:bg-dark-800 text-gray-600 dark:text-gray-400 font-medium py-2 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-dark-950;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-dark-900 rounded-xl shadow-sm border border-gray-200 dark:border-dark-700 p-8 transition-colors duration-200;
+  }
+  
+  .card-header {
+    @apply bg-gray-50 dark:bg-dark-800 rounded-t-xl -m-8 mb-6 p-6 border-b border-gray-200 dark:border-dark-700;
+  }
+  
+  .form-input {
+    @apply block w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400 transition-colors duration-200 bg-white dark:bg-dark-800 text-gray-900 dark:text-gray-100;
+  }
+  
+  .form-select {
+    @apply block w-full px-4 py-3 border border-gray-300 dark:border-dark-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400 transition-colors duration-200 bg-white dark:bg-dark-800 text-gray-900 dark:text-gray-100;
+  }
+  
+  .severity-low {
+    @apply bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200;
+  }
+  
+  .severity-medium {
+    @apply bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200;
+  }
+  
+  .severity-high {
+    @apply bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200;
+  }
+  
+  .step-card {
+    @apply bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-lg p-6 hover:shadow-md dark:hover:shadow-lg hover:border-gray-300 dark:hover:border-dark-600 transition-all duration-200;
+  }
+  
+  .step-card-completed {
+    @apply bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border-green-300 dark:border-green-700 shadow-lg;
+  }
+  
+  .collapsible {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .loading-spinner {
+    @apply animate-spin rounded-full h-6 w-6 border-2 border-gray-300 dark:border-dark-600 border-t-primary-600 dark:border-t-primary-400;
+  }
+  
+  .metric-card {
+    @apply bg-gradient-to-br from-white to-gray-50 dark:from-dark-900 dark:to-dark-800 border border-gray-200 dark:border-dark-700 rounded-lg p-6 hover:shadow-md dark:hover:shadow-lg transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .glass {
+    @apply backdrop-blur-sm bg-white/80 border border-white/20;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Smooth animations */
+* {
+  @apply scroll-smooth;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+}
+
+/* Performance optimizations - Hardware acceleration */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hardware acceleration for smooth performance */
+.transform,
+.transition-transform,
+[class*="transform"],
+[class*="transition-"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Enhanced button performance */
+button {
+  will-change: transform;
+  @apply transform transition-all duration-150 ease-in-out;
+}
+
+button:hover {
+  @apply -translate-y-0.5 shadow-lg;
+}
+
+button:active {
+  @apply translate-y-0 transition-all duration-75;
+}
+
+/* Enhanced card hover performance */
+.card:hover,
+.step-card:hover,
+.metric-card:hover {
+  will-change: transform, box-shadow;
+  @apply scale-[1.02];
+}
+
+/* Loading state performance */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.4) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Component fade-in performance */
+.fade-in {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
