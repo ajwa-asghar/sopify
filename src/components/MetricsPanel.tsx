@@ -112,7 +112,7 @@ export function MetricsPanel() {
           font: {
             size: 13,
             family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-            weight: '500' as const
+            weight: 500
           },
           color: '#374151'
         },
@@ -128,11 +128,11 @@ export function MetricsPanel() {
         displayColors: false,
         titleFont: {
           size: 14,
-          weight: '600'
+          weight: 600
         },
         bodyFont: {
           size: 13,
-          weight: '400'
+          weight: 400
         }
       },
     },
@@ -143,7 +143,7 @@ export function MetricsPanel() {
           color: '#6b7280',
           font: {
             size: 12,
-            weight: '400'
+            weight: 400
           },
           callback: function(value: any): string {
             return Math.floor(value).toString();
@@ -159,7 +159,7 @@ export function MetricsPanel() {
           color: '#6b7280',
           font: {
             size: 12,
-            weight: '400'
+            weight: 400
           },
           maxRotation: 0,
         },
@@ -168,7 +168,7 @@ export function MetricsPanel() {
         }
       },
     },
-  };
+  } as any;
 
   const pieOptions = {
     responsive: true,
@@ -182,7 +182,7 @@ export function MetricsPanel() {
           font: {
             size: 13,
             family: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-            weight: '500' as const
+            weight: 500
           },
           color: '#374151'
         },
@@ -198,11 +198,11 @@ export function MetricsPanel() {
         displayColors: false,
         titleFont: {
           size: 14,
-          weight: '600'
+          weight: 600
         },
         bodyFont: {
           size: 13,
-          weight: '400'
+          weight: 400
         },
         callbacks: {
           label: function(context: any): string {
@@ -244,7 +244,7 @@ export function MetricsPanel() {
             </div>
           </div>
           <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">
-            {metrics.compliance}%
+            {metrics.complianceRate}%
           </div>
           <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
             COMPLIANCE
@@ -261,7 +261,7 @@ export function MetricsPanel() {
             </div>
           </div>
           <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-            +{metrics.efficiency}%
+            +{metrics.efficiencyImprovement}%
           </div>
           <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
             EFFICIENCY
@@ -278,7 +278,7 @@ export function MetricsPanel() {
             </div>
           </div>
           <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-            {metrics.avgResolutionTime}
+            {metrics.averageResolutionTime}
           </div>
           <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
             AVG RESOLUTION

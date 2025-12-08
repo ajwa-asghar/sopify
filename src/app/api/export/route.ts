@@ -216,7 +216,7 @@ async function generatePDF(sop: SOP, completedSteps: string[]) {
 
   // Immediate Response Actions
   addSectionHeader('IMMEDIATE RESPONSE ACTIONS (Phase 1)', colors.danger);
-  addText('Execute these actions immediately upon incident detection. Time is critical for ' + sop.severity.toLowerCase() + ' severity incidents.', 10, 'italic', colors.medium, 0, 8);
+  addText('Execute these actions immediately upon incident detection. Time is critical for ' + sop.severity.toLowerCase() + ' severity incidents.', 10, 'normal', colors.medium, 0, 8);
   
   const renderDetailedStep = (step: any, index: number, isImmediate: boolean = true, phase: string = '') => {
     const isCompleted = completedSteps.includes(step.id);
@@ -303,7 +303,7 @@ async function generatePDF(sop: SOP, completedSteps: string[]) {
   // Preventive Measures & Long-term Mitigation
   yPosition += 8;
   addSectionHeader('PREVENTIVE MEASURES & LONG-TERM MITIGATION (Phase 2)', colors.warning);
-  addText('Implement these measures to prevent incident recurrence and strengthen system resilience:', 10, 'italic', colors.medium, 0, 8);
+  addText('Implement these measures to prevent incident recurrence and strengthen system resilience:', 10, 'normal', colors.medium, 0, 8);
   
   // Render all preventive steps with enhanced detail
   sop.preventiveActions.forEach((step, index) => {

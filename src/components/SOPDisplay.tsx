@@ -459,24 +459,28 @@ export const SOPDisplay = memo(function SOPDisplay({ sop, onNewSOP, completedSte
             onClick={async (e) => {
               const success = await copyToClipboard();
               const button = e.currentTarget;
-              const titleEl = button.querySelector('.font-semibold');
-              const subtitleEl = button.querySelector('.text-sm');
+              const titleEl = button.querySelector('.font-semibold') as HTMLElement | null;
+              const subtitleEl = button.querySelector('.text-sm') as HTMLElement | null;
               
-              if (success) {
+              if (success && titleEl && subtitleEl) {
                 titleEl.textContent = 'Copied Successfully!';
                 titleEl.style.color = '#22c55e';
                 subtitleEl.textContent = 'Comprehensive format';
                 setTimeout(() => {
-                  titleEl.textContent = 'Copy to Clipboard';
-                  titleEl.style.color = '';
-                  subtitleEl.textContent = 'Comprehensive format';
+                  if (titleEl && subtitleEl) {
+                    titleEl.textContent = 'Copy to Clipboard';
+                    titleEl.style.color = '';
+                    subtitleEl.textContent = 'Comprehensive format';
+                  }
                 }, 2000);
-              } else {
+              } else if (titleEl && subtitleEl) {
                 titleEl.textContent = 'Copy Failed';
                 titleEl.style.color = '#ef4444';
                 setTimeout(() => {
-                  titleEl.textContent = 'Copy to Clipboard';
-                  titleEl.style.color = '';
+                  if (titleEl) {
+                    titleEl.textContent = 'Copy to Clipboard';
+                    titleEl.style.color = '';
+                  }
                 }, 2000);
               }
             }}
