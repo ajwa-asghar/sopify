@@ -1,0 +1,12 @@
+# Railway configuration file
+# This ensures environment variables are properly passed to the runtime
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
