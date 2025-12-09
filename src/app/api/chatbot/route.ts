@@ -1,18 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// Startup check (dev mode only)
+if (process.env.NODE_ENV === 'development' && !process.env.GEMINI_API_KEY) {
+  console.error('⚠️  Gemini API key missing. Check Railway env variables.');
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { message } = await request.json();
 
+    // Validate API key exists
     if (!process.env.GEMINI_API_KEY) {
+      console.error('Missing GEMINI_API_KEY environment variable');
       return NextResponse.json(
-        { error: 'AI service not configured' },
+        { error: 'AI service not configured. Please add GEMINI_API_KEY to your Railway environment variables.' },
         { status: 500 }
       );
     }
+
+    // Initialize Gemini AI inside the handler to ensure env var is available
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.5-flash',

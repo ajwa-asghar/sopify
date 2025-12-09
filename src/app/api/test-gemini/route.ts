@@ -1,30 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
+// Startup check (dev mode only)
+if (process.env.NODE_ENV === 'development' && !process.env.GEMINI_API_KEY) {
+  console.error('⚠️  Gemini API key missing. Check Railway env variables.');
+}
+
 export async function GET() {
   try {
     if (!process.env.GEMINI_API_KEY) {
+      console.error('Missing GEMINI_API_KEY environment variable');
       return NextResponse.json(
         { 
           status: 'error', 
           message: 'GEMINI_API_KEY not found in environment variables',
-          solution: 'Please add your Gemini API key to .env.local file'
+          solution: 'Please add GEMINI_API_KEY to your Railway environment variables'
         },
         { status: 500 }
       );
     }
 
     if (!process.env.GEMINI_API_KEY.startsWith('AIza')) {
+      console.error('Invalid GEMINI_API_KEY format');
       return NextResponse.json(
         { 
           status: 'error', 
           message: 'Invalid API key format',
-          solution: 'Gemini API keys should start with "AIza"'
+          solution: 'Gemini API keys should start with "AIza". Please check your Railway environment variables.'
         },
         { status: 500 }
       );
     }
 
+    // Initialize Gemini AI inside the handler to ensure env var is available
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     
     // Use current available Gemini models (as of 2025)

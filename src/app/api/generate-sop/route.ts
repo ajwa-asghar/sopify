@@ -2,17 +2,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import type { Incident, SOP, SOPStep } from '@/types';
 
-// Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+// Startup check (dev mode only)
+if (process.env.NODE_ENV === 'development' && !process.env.GEMINI_API_KEY) {
+  console.error('⚠️  Gemini API key missing. Check Railway env variables.');
+}
 
 export async function POST(request: NextRequest) {
   try {
     const incident: Incident = await request.json();
 
+    // Validate API key exists
     if (!process.env.GEMINI_API_KEY) {
       console.error('Missing GEMINI_API_KEY environment variable');
       return NextResponse.json(
-        { error: 'Gemini API key not configured. Please add GEMINI_API_KEY to your environment variables.' },
+        { error: 'Gemini API key not configured. Please add GEMINI_API_KEY to your Railway environment variables.' },
         { status: 500 }
       );
     }
@@ -21,10 +24,13 @@ export async function POST(request: NextRequest) {
     if (!process.env.GEMINI_API_KEY.startsWith('AIza')) {
       console.error('Invalid GEMINI_API_KEY format');
       return NextResponse.json(
-        { error: 'Invalid API key format. Please check your GEMINI_API_KEY.' },
+        { error: 'Invalid API key format. Please check your GEMINI_API_KEY in Railway.' },
         { status: 500 }
       );
     }
+
+    // Initialize Gemini AI inside the handler to ensure env var is available
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     // Use the fastest available model directly (we know it works from testing)
     const model = genAI.getGenerativeModel({ 

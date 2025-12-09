@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Startup check (dev mode only)
+if (process.env.NODE_ENV === 'development' && !process.env.GEMINI_API_KEY) {
+  console.error('⚠️  Gemini API key missing. Check Railway env variables.');
+}
+
 export async function GET() {
   try {
     if (!process.env.GEMINI_API_KEY) {
+      console.error('Missing GEMINI_API_KEY environment variable');
       return NextResponse.json(
-        { error: 'GEMINI_API_KEY not found' },
+        { error: 'GEMINI_API_KEY not found. Please add GEMINI_API_KEY to your Railway environment variables.' },
         { status: 500 }
       );
     }
