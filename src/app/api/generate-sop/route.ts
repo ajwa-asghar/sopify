@@ -11,26 +11,57 @@ export async function POST(request: NextRequest) {
   try {
     const incident: Incident = await request.json();
 
+    // Debug: Log all environment variables that contain 'GEMINI' or 'API'
+    const relevantEnvVars = Object.keys(process.env)
+      .filter(key => key.includes('GEMINI') || key.includes('API') || key.includes('KEY'))
+      .reduce((acc, key) => {
+        acc[key] = process.env[key] ? `${process.env[key]?.substring(0, 10)}...` : 'NOT_SET';
+        return acc;
+      }, {} as Record<string, string>);
+    
+    console.log('🔍 Environment check:', {
+      hasGeminiKey: !!process.env.GEMINI_API_KEY,
+      nodeEnv: process.env.NODE_ENV,
+      relevantVars: relevantEnvVars,
+      allKeys: Object.keys(process.env).filter(k => k.includes('GEMINI'))
+    });
+
+    // Try multiple possible env var names (Railway sometimes has naming issues)
+    const apiKey = process.env.GEMINI_API_KEY 
+      || process.env.GEMINIAPIKEY 
+      || process.env.gemini_api_key
+      || process.env.GOOGLE_GEMINI_API_KEY;
+
     // Validate API key exists
-    if (!process.env.GEMINI_API_KEY) {
-      console.error('Missing GEMINI_API_KEY environment variable');
+    if (!apiKey) {
+      console.error('❌ Missing GEMINI_API_KEY environment variable');
+      console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('GEMINI') || k.includes('API')));
       return NextResponse.json(
-        { error: 'Gemini API key not configured. Please add GEMINI_API_KEY to your Railway environment variables.' },
+        { 
+          error: 'Gemini API key not configured. Please add GEMINI_API_KEY to your Railway environment variables.',
+          debug: {
+            nodeEnv: process.env.NODE_ENV,
+            checkedVars: ['GEMINI_API_KEY', 'GEMINIAPIKEY', 'gemini_api_key', 'GOOGLE_GEMINI_API_KEY'],
+            availableKeys: Object.keys(process.env).filter(k => k.includes('GEMINI') || k.includes('API'))
+          }
+        },
         { status: 500 }
       );
     }
 
     // Validate the API key format
-    if (!process.env.GEMINI_API_KEY.startsWith('AIza')) {
-      console.error('Invalid GEMINI_API_KEY format');
+    if (!apiKey.startsWith('AIza')) {
+      console.error('❌ Invalid GEMINI_API_KEY format - should start with AIza');
       return NextResponse.json(
         { error: 'Invalid API key format. Please check your GEMINI_API_KEY in Railway.' },
         { status: 500 }
       );
     }
 
+    console.log('✅ GEMINI_API_KEY found and validated');
+
     // Initialize Gemini AI inside the handler to ensure env var is available
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(apiKey);
 
     // Use the fastest available model directly (we know it works from testing)
     const model = genAI.getGenerativeModel({ 

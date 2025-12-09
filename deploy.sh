@@ -72,3 +72,4 @@ echo "  - Creating a sample incident"
 echo "  - Generating an SOP"
 echo "  - Checking metrics visualization"
 echo "  - Testing export functionality"
+

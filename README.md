@@ -247,3 +247,4 @@ For issues and questions:
 ---
 
 **Built with ❤️ using Next.js, Tailwind CSS, and Google Gemini AI**
+

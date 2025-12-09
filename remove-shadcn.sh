@@ -19,3 +19,4 @@ echo ""
 echo "🎉 Shadcn component safely removed!"
 echo "✅ Main SOPify app is unaffected"
 echo "🚀 Run 'npm run dev' to restart the server"
+
